@@ -21,6 +21,22 @@ router.post('/', checkFields, async (req, res) => {
     }
 })
 //R
+router.get('/', async (req, res) => {
+    try {
+        //don't try this at home kids
+        const projects = []
+        for(let i = 1; i < 51; i++) {
+            const project = await db_projects.get(i)
+            if(project) projects.push(project)
+        }
+        projects.length > 0
+        ?   res.status(200).json(projects)
+        :   res.status(404).json({message: `No projects were found.`})
+    }
+    catch (err) {
+        res.status(500).json(err)
+    }
+})
 router.get('/:id', checkID, async (req, res) => {
     try {
         const project = await db_projects.get(req.params.id)

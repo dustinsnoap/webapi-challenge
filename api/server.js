@@ -1,13 +1,14 @@
 const express = require('express')
-const helmet = require('helmet') //I forgot what this is for
+const cors = require('cors');
 
 const server = express()
 
 const actionRoutes = require('../routes/actions')
 const projectRoutes = require('../routes/projects')
 
-server.use(helmet())
 server.use(express.json())
+server.use(cors());
+
 server.use('/api/projects', projectRoutes)
 server.use('/api/actions', actionRoutes)
 
