@@ -11,4 +11,14 @@ there is no data on that route, just write some code, you'll sort it out… don'
 I need this code, just don't know where, perhaps should make some middleware, don't worry, be happy
 
 Go code!
+
+NOPE
 */
+
+require('dotenv').config()
+const server = require('./api/server')
+const PORT = process.env.PORT || 4004
+
+server.listen(PORT, () => {
+    console.log(`\n*** Don't tell me what to do on port ${PORT}! ***\n`)
+})
