@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
 class Project extends Component {
-    constructor({project}) {
+    constructor() {
         super()
         this.state = {
             active: false,
@@ -10,22 +10,31 @@ class Project extends Component {
     h_toggle_active = () =>
         this.setState(prevState => { return {active: !prevState.active}})
     render = () =>
-        <div className='project'>
+        <div className='project' onClick={this.h_toggle_active}>
             <div className='summary'>
-                <pre>ID: {project.id}</pre>
-                <pre>Name: {project.name}</pre>
-                <pre>Description: {project.description}</pre>
-                <pre>Completed: {project.completed}</pre>
-                <pre>Actions: {project.actions.length}</pre>
+                <p className='title'>Project id:</p>
+                <p className='value'>{this.props.project.id}</p>
+                <p className='title'>Name:</p>
+                <p className='value'>{this.props.project.name}</p>
+                <p className='title'>Description:</p>
+                <p className='value'>{this.props.project.description}</p>
+                <p className='title'>Completed:</p>
+                <p className='value'>{this.props.project.completed ? 'True' : 'False'}</p>
+                <p className='title'>Actions:</p>
+                <p className='value'>{this.props.project.actions.length}</p>
             </div>
-            <div className='actions'>
-                {project.actions.map(action =>
-                    <>
-                    <pre>ID: {action.id}</pre>
-                    <pre>Description: {action.description}</pre>
-                    <pre>Notes: {action.notes}</pre>
-                    <pre>Completed: {action.completed}</pre>
-                    </>
+            <div className={this.state.active ? 'actions active' : 'actions'}>
+                {this.props.project.actions.map(action =>
+                    <div className='action' key={action.id}>
+                        <p className='title'>id:</p>
+                        <p className='value'>{action.id}</p>
+                        <p className='title'>description:</p>
+                        <p className='value'>{action.description}</p>
+                        <p className='title'>notes:</p>
+                        <p className='value'>{action.notes}</p>
+                        <p className='title'>completed: </p>
+                        <p className='value'>{action.completed ? 'True' : 'False'}</p>
+                    </div>
                 )}
             </div>
         </div>

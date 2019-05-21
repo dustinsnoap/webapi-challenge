@@ -14,7 +14,7 @@ checkID = async (req, res, next) => {
 
 checkFields = (req, res, next) => {
     req.body && Object.keys(req.body).length > 1
-    ?   req.body.name && req.body.description && req.body.name
+    ?   req.body.name && req.body.description
         ?   next()
         :   res.status(400).json({message: `Missing required fields, or fields are empty.`})
     :   res.status(400).json({message: `Project data not received.`})

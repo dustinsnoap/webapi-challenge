@@ -11,9 +11,14 @@ router.post('/', checkFields, async (req, res) => {
         const {name, description} = req.body
         //check for completed field, default to false
         const completed = req.body.completed === undefined ? false : req.body.completed
-        const project = await db_projects.insert({name, description, completed})
-        project
-        ?   res.status(201).json(project)
+        await db_projects.insert({name, description, completed})
+        const projects = []
+        for(let i = 1; i < 51; i++) {
+            const project = await db_projects.get(i)
+            if(project) projects.push(project)
+        }
+        projects.length > 0
+        ?   res.status(201).json(projects)
         :   res.status(400).json({message: `Couldn't add project.`})
     }
     catch (err) {
@@ -29,6 +34,7 @@ router.get('/', async (req, res) => {
             const project = await db_projects.get(i)
             if(project) projects.push(project)
         }
+        // const projects = await db_projects.get()
         projects.length > 0
         ?   res.status(200).json(projects)
         :   res.status(404).json({message: `No projects were found.`})
